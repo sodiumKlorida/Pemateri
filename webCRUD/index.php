@@ -69,39 +69,39 @@ $listTugas = mysqli_query($mysqli, "SELECT * FROM tugas ORDER BY id_tugas DESC")
     </div>
 
     <div class="flex flex-wrap pl-[4rem]"> <!-- Flex container for task cards -->
-        <!-- Task List -->
-        <?php foreach ($listTugas as $task): ?>
-            <div class="relative flex flex-col m-4 text-gray-700 bg-white shadow-md bg-clip-border rounded-xl w-80"> <!-- Adjusted width -->
-                <div class="p-6">
-                    <h5 class="block mb-2 font-sans text-xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900">
-                        <?= $task["nama_tugas"] ?>
-                    </h5>
-                    <p class=" flex ">
-                        <?= $task["deskripsi_tugas"] ?>
-                    </p>
-                    <span><?= $task["deadline_tugas"] ?></span>
-                    <?php
-                    switch ($task['status_tugas']) {
-                        case 1:
-                            echo '<p class="text-red-600">Belum</p>';
-                            break;
-                        case 2:
-                            echo '<p class="text-yellow-600">Dalam Proses</p>';
-                            break;
-                        case 3:
-                            echo '<p class="text-green-600">Selesai</p>';
-                            break;
-                        default:
-                            echo '<p class="text-gray-600">Status Tidak Diketahui</p>';
-                    }
-                    ?>
-                </div>
-                <div class="p-6 pt-0">
-                    <!-- Open Modal Button -->
-                    <button type="button" class="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg bg-gray-900 text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none"
-                        onclick="document.getElementById('modal-<?= $task['id_tugas'] ?>').showModal()">Edit</button>
-                </div>
-            </div>
+    <!-- Task List -->
+    <?php foreach ($listTugas as $task): ?>   
+        <div class=" flex flex-col m-4 text-gray-700 bg-white shadow-md bg-clip-border rounded-xl w-80"> <!-- Adjusted width -->
+          <div class="p-6">
+              <h5 class="block mb-2 font-sans text-xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900">
+                  <?=$task["nama_tugas"]?>
+              </h5>
+              <p class="block font-sans text-base antialiased font-light min-h-20 leading-relaxed text-inherit">
+                  <?=$task["deskripsi_tugas"]?>
+              </p>
+              <span><?=$task["deadline_tugas"]?></span>
+              <?php
+                switch($task['status_tugas']) {
+                  case 1:
+                      echo '<p class="text-red-600">Belum</p>';
+                      break;
+                  case 2:
+                      echo '<p class="text-yellow-600">Dalam Proses</p>';
+                      break;
+                  case 3:
+                      echo '<p class="text-green-600">Selesai</p>';
+                      break;
+                  default:
+                      echo '<p class="text-gray-600">Status Tidak Diketahui</p>';
+                }
+              ?>
+          </div>
+          <div class="p-6 pt-0">
+            <!-- Open Modal Button -->
+            <button type="button" class="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg bg-gray-900 text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none" 
+              onclick="document.getElementById('modal-<?=$task['id_tugas']?>').showModal()">Edit</button>
+          </div>
+        </div>
 
             <!-- Modal for Editing Task -->
             <dialog id="modal-<?= $task['id_tugas'] ?>" class="bg-gray-200">
