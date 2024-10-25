@@ -71,12 +71,12 @@ $listTugas = mysqli_query($mysqli, "SELECT * FROM tugas ORDER BY id_tugas DESC")
     <div class="flex flex-wrap pl-[4rem]"> <!-- Flex container for task cards -->
     <!-- Task List -->
     <?php foreach ($listTugas as $task): ?>   
-        <div class="relative flex flex-col m-4 text-gray-700 bg-white shadow-md bg-clip-border rounded-xl w-80"> <!-- Adjusted width -->
+        <div class=" flex flex-col m-4 text-gray-700 bg-white shadow-md bg-clip-border rounded-xl w-80"> <!-- Adjusted width -->
           <div class="p-6">
               <h5 class="block mb-2 font-sans text-xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900">
                   <?=$task["nama_tugas"]?>
               </h5>
-              <p class="block font-sans text-base antialiased font-light leading-relaxed text-inherit">
+              <p class="block font-sans text-base antialiased font-light min-h-20 leading-relaxed text-inherit">
                   <?=$task["deskripsi_tugas"]?>
               </p>
               <span><?=$task["deadline_tugas"]?></span>

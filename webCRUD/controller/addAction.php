@@ -4,7 +4,7 @@
 </head>
 
 <body>
-<?php
+<?php	
 // Include the database connection file
 require_once("../config/connection.php");
 
