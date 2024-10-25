@@ -50,7 +50,7 @@ $listTugas = mysqli_query($mysqli, "SELECT * FROM Tugas ORDER BY id_tugas DESC")
         </div>
     </div>
 
-    <div class="flex flex-row justify-between px-6">
+    <div class="flex flex-row justify-center px-6">
         <div class="flex flex-col ">
             <h3>All</h3>
         </div>
