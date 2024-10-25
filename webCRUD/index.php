@@ -19,15 +19,16 @@ $listTugas = mysqli_query($mysqli, "SELECT * FROM Tugas ORDER BY id_tugas DESC")
 
 <body class="bg-gray-100 m-0">
     <div class="container mx-0">
-        <div class="header 
+        <div class="
+        header 
         flex 
-        flex-row 
         items-center   
         justify-between
         mb-6 
         px-6
         w-full 
-        h-[5rem]   
+        h-[5rem]  
+        sticky top-0 
         bg-white 
         shadow-md">
 
@@ -45,12 +46,12 @@ $listTugas = mysqli_query($mysqli, "SELECT * FROM Tugas ORDER BY id_tugas DESC")
 
             <!-- Right Content (Button) -->
             <div class="flex flex-col">
-                <?= date("D, d F Y")?> 
+                <?= date("l, d F Y")?> 
             </div>
         </div>
     </div>
 
-    <div class="flex flex-row justify-center px-6">
+    <div class="flex flex-row justify-center mx-6">
         <div class="flex flex-col ">
             <h3>All</h3>
         </div>
@@ -92,6 +93,8 @@ $listTugas = mysqli_query($mysqli, "SELECT * FROM Tugas ORDER BY id_tugas DESC")
             // Logic menampilkan status
 
             echo "<p class='text-gray-600 mb-4'>" . $tugas['status_tugas'] == 1 ? "<strong>Status:</strong> Belum Selesai" : "<strong>Status:</strong> Selesai</p>";
+
+            echo "<p> Deskripsi : </p>" . $tugas['deskripsi_tugas'];
 
             echo "<div class='flex space-x-4'>";
             // echo "<a href=\"edit.php?id_tugas=$tugas[id_tugas]\" class='bg-yellow-400 hover:bg-yellow-500 text-white font-bold py-1 px-3 rounded inline-flex items-center'>
