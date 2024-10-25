@@ -68,7 +68,7 @@ $listTugas = mysqli_query($mysqli, "SELECT * FROM tugas ORDER BY id_tugas DESC")
         </div>
     </div>
 
-    <div class="flex flex-wrap z-0"> <!-- Flex container for task cards -->
+    <div class="flex flex-wrap pl-[4rem]"> <!-- Flex container for task cards -->
     <!-- Task List -->
     <?php foreach ($listTugas as $task): ?>   
         <div class="relative flex flex-col m-4 text-gray-700 bg-white shadow-md bg-clip-border rounded-xl w-80"> <!-- Adjusted width -->
