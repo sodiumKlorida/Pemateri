@@ -137,7 +137,7 @@ $listTugas = mysqli_query($mysqli, "SELECT * FROM tugas ORDER BY id_tugas DESC")
         <dialog id="addTaskModal" class="bg-gray-200">
             <div class="bg-white p-8 w-[400px] rounded-lg">
                 <h1>Tambah Tugas</h1>
-                <form action="controller/addAction.php" method="POST" name="add" class="flex flex-col">
+                <form action="./controller/addAction.php" method="POST" name="add" class="flex flex-col">
                     <input type="hidden" name="action" value="add">
                     <input class="my-2 outline-gray-900" type="text" name="nama_tugas" placeholder="Judul" required>
                     <textarea class="my-2" name="deskripsi" placeholder="Deskripsi" required></textarea>
@@ -150,13 +150,13 @@ $listTugas = mysqli_query($mysqli, "SELECT * FROM tugas ORDER BY id_tugas DESC")
                     <div>
                         <button type="button" class="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg bg-gray-900 text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none"
                             onclick="document.getElementById('addTaskModal').close()">Close</button>
-                        <input value="Add" type="submit" class="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg bg-blue-600 text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none">
+                            <input value="Add" type="submit" name="submit" class="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg bg-blue-600 text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none">
+
                     </div>
                 </form>
             </div>
         </dialog>
     </div>
->>>>>>> c7cda663752bba453d3ed839735a2be461fc6a9c
 </body>
 
 </html>

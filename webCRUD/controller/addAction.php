@@ -38,9 +38,10 @@ if (isset($_POST['submit'])) {
 		echo $namaTugas;
 		// Insert data into database
 		$result = mysqli_query($mysqli, "INSERT INTO tugas (nama_tugas, deadline_tugas, status_tugas, deskripsi_tugas) VALUES ('$namaTugas', '$deadLine', '$status', '$deskripsi')");
+
 		
 		if($result){
-			header('Location: http://localhost/Pemateri/src/index.php');
+			header('Location: http://localhost/Pemateri/webCRUD/index.php');
             exit();
 		}
 		// Display success message
