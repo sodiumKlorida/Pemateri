@@ -7,7 +7,8 @@ if (isset($_POST['update'])) {
 	$id = mysqli_real_escape_string($mysqli, $_POST['id_tugas']);
 	$namaTugas = mysqli_real_escape_string($mysqli, $_POST['nama_tugas']);
 	$deadLine = mysqli_real_escape_string($mysqli, $_POST['deadline_tugas']);
-	$status = mysqli_real_escape_string($mysqli, $_POST['status_tugas']);	
+	$status = mysqli_real_escape_string($mysqli, $_POST['status_tugas']);
+	$deskripsi = mysqli_real_escape_string($mysqli, $_POST['deskripsi_tugas']);	
 	
 	// Check for empty fields
 	if (empty($namaTugas) || empty($deadLine) || empty($status)) {
@@ -16,7 +17,7 @@ if (isset($_POST['update'])) {
 		}
 		
 		if (empty($deadLine)) {
-			echo "<font color='red'>Dead Line field is empty.</font><br/>";
+			echo "<font color='red'>Deadline field is empty.</font><br/>";
 		}
 		
 		if (empty($status)) {
@@ -25,24 +26,22 @@ if (isset($_POST['update'])) {
 
 		echo "<br/><a href='javascript:self.history.back();'>Go Back</a>";
 	} else {
-		// Update the database table
-		$result = mysqli_query($mysqli, "UPDATE tugas SET `nama_tugas` = '$namaTugas', `deadline_tugas` = '$deadLine', `status_tugas` = '$status' WHERE `id_tugas` = $id");
+		// Update the database table with correct syntax
+		$result = mysqli_query($mysqli, "UPDATE tugas SET `nama_tugas` = '$namaTugas', `deskripsi_tugas` = '$deskripsi', `deadline_tugas` = '$deadLine', `status_tugas` = '$status' WHERE `id_tugas` = $id");
 		
 		// Display success message
-		// If update is successful
 		if ($result) {
+			header('Location: http://localhost/Pemateri/webCRUD/index.php');
 			echo "<script type='text/javascript'>
 				alert('Data updated successfully!');
 				window.location.href = '/index.php';
 			</script>";
+            exit();
 		} else {
-			// If there's an error
 			echo "<script type='text/javascript'>
 				alert('Error updating data.');
 			</script>";
 		}
-
-
-		
 	}
 }
+?>

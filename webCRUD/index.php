@@ -107,20 +107,20 @@ $listTugas = mysqli_query($mysqli, "SELECT * FROM tugas ORDER BY id_tugas DESC")
         <dialog id="modal-<?=$task['id_tugas']?>" class="bg-gray-200">
           <div class="bg-white p-8 w-[400px] rounded-lg">
               <h1>Edit Tugas</h1>
-              <form action="../controller/TaskController.php" method="POST" class="flex flex-col">
-                  <input type="hidden" name="id" value="<?=$task['id']?>"> <!-- Input tersembunyi untuk ID -->
-                  <input class="my-2 outline-gray-900" type="text" name="judul" value="<?=$task["judul"]?>">
-                  <textarea class="my-2" name="deskripsi"><?=$task['deskripsi'] ?></textarea>
-                  <input type="date" name="date" value="<?=$task['date']?>">
-                  <select class="my-2 py-1 text-gray-700 dark:text-gray-400 text-sm" name="status">
+              <form action="./controller/editAction.php" name="update" method="POST" class="flex flex-col">
+                  <input type="hidden" name="id_tugas" value="<?=$task['id_tugas']?>">
+                  <input class="my-2 outline-gray-900" type="text" name="nama_tugas" value="<?=$task["nama_tugas"]?>">
+                  <textarea class="my-2" name="deskripsi_tugas"><?=$task['deskripsi_tugas'] ?></textarea>
+                  <input type="date" name="deadline_tugas" value="<?=$task['deadline_tugas']?>">
+                  <select class="my-2 py-1 text-gray-700 dark:text-gray-400 text-sm" name="status_tugas">
                       <option value="1" <?= $task['status_tugas'] == 1 ? 'selected' : '' ?>>Belum</option>
                       <option value="2" <?= $task['status_tugas'] == 2 ? 'selected' : '' ?>>Dalam Proses</option>
                       <option value="3" <?= $task['status_tugas'] == 3 ? 'selected' : '' ?>>Selesai</option>
                   </select>
                   <div>
                       <button type="button" class="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg bg-gray-900 text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none" 
-                          onclick="document.getElementById('modal-<?=$task['id']?>').close()">Close</button>
-                      <input value="Save" type="submit" class="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg bg-green-600 text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none">
+                          onclick="document.getElementById('modal-<?=$task['id_tugas']?>').close()">Close</button>
+                      <input value="Save" type="submit" name="update" class="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg bg-green-600 text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none">
                   </div>
               </form>
           </div>
@@ -129,33 +129,34 @@ $listTugas = mysqli_query($mysqli, "SELECT * FROM tugas ORDER BY id_tugas DESC")
   </div>
     
     <div class="fixed bottom-4 right-4">
-    <button type="button" class="fixed bottom-6 right-6 bg-blue-500 text-white rounded-full p-4 shadow-lg hover:bg-blue-600 transition duration-300" onclick="document.getElementById('addTaskModal').showModal()">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-        </svg>
-    </button>
-    <dialog id="addTaskModal" class="bg-gray-200">
-      <div class="bg-white p-8 w-[400px] rounded-lg">
-          <h1>Tambah Tugas</h1>
-          <form action="controller/addAction.php" method="POST" name="add" class="flex flex-col">
-              <input type="hidden" name="action" value="add">
-              <input class="my-2 outline-gray-900" type="text" name="nama_tugas" placeholder="Judul" required>
-              <textarea class="my-2" name="deskripsi" placeholder="Deskripsi" required></textarea>
-              <input type="date" name="deadline_tugas" required>
-              <select class="my-2 py-1 text-gray-700 dark:text-gray-400 text-sm" name="status_tugas" required>
-                  <option value="1">Belum</option>
-                  <option value="2">Dalam Proses</option>
-                  <option value="3">Selesai</option>
-              </select>
-              <div>
-                  <button type="button" class="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg bg-gray-900 text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none" 
-                          onclick="document.getElementById('addTaskModal').close()">Close</button>
-                  <input value="Add" type="submit" class="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg bg-blue-600 text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none">
-              </div>
-          </form>
-      </div>
-    </dialog>
-</div>
+        <button type="button" class="fixed bottom-6 right-6 bg-blue-500 text-white rounded-full p-4 shadow-lg hover:bg-blue-600 transition duration-300" onclick="document.getElementById('addTaskModal').showModal()">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+            </svg>
+        </button>
+        <dialog id="addTaskModal" class="bg-gray-200">
+            <div class="bg-white p-8 w-[400px] rounded-lg">
+                <h1>Tambah Tugas</h1>
+                <form action="./controller/addAction.php" method="POST" name="add" class="flex flex-col">
+                    <input type="hidden" name="action" value="add">
+                    <input class="my-2 outline-gray-900" type="text" name="nama_tugas" placeholder="Judul" required>
+                    <textarea class="my-2" name="deskripsi_tugas" placeholder="Deskripsi" required></textarea>
+                    <input type="date" name="deadline_tugas" required>
+                    <select class="my-2 py-1 text-gray-700 dark:text-gray-400 text-sm" name="status_tugas" required>
+                        <option value="1">Belum</option>
+                        <option value="2">Dalam Proses</option>
+                        <option value="3">Selesai</option>
+                    </select>
+                    <div>
+                        <button type="button" class="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg bg-gray-900 text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none"
+                            onclick="document.getElementById('addTaskModal').close()">Close</button>
+                            <input value="Add" type="submit" name="submit" class="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg bg-blue-600 text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none">
+
+                    </div>
+                </form>
+            </div>
+        </dialog>
+    </div>
 </body>
 
 </html>
