@@ -31,7 +31,7 @@ if (isset($_POST['update'])) {
 		
 		// Display success message
 		if ($result) {
-			header('Location: http://localhost/Pemateri/webCRUD/index.php');
+			header('Location: /webCRUD/index.php');
 			echo "<script type='text/javascript'>
 				alert('Data updated successfully!');
 				window.location.href = '/index.php';
