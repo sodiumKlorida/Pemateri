@@ -4,7 +4,7 @@
 require_once("config/connection.php");
 
 // Fetch data in descending order (latest entry first)
-$listTugas = mysqli_query($mysqli, "SELECT * FROM Tugas ORDER BY id_tugas DESC");
+$listTugas = mysqli_query($mysqli, "SELECT * FROM tugas ORDER BY id_tugas DESC");
 ?>
 
 <html lang="en">
@@ -110,11 +110,32 @@ $listTugas = mysqli_query($mysqli, "SELECT * FROM Tugas ORDER BY id_tugas DESC")
         ?>
     </div>
     <div class="fixed bottom-4 right-4">
-    <a href="view/add.php" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-3 rounded-full shadow-lg flex items-center">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+    <button type="button" class="fixed bottom-6 right-6 bg-blue-500 text-white rounded-full p-4 shadow-lg hover:bg-blue-600 transition duration-300" onclick="document.getElementById('addTaskModal').showModal()">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
         </svg>
-    </a>
+    </button>
+    <dialog id="addTaskModal" class="bg-gray-200">
+      <div class="bg-white p-8 w-[400px] rounded-lg">
+          <h1>Tambah Tugas</h1>
+          <form action="controller/addAction.php" method="POST" class="flex flex-col">
+              <input type="hidden" name="action" value="add">
+              <input class="my-2 outline-gray-900" type="text" name="nama_tugas" placeholder="Judul" required>
+              <textarea class="my-2" name="deskripsi" placeholder="Deskripsi" required></textarea>
+              <input type="date" name="deadline_tugas" required>
+              <select class="my-2 py-1 text-gray-700 dark:text-gray-400 text-sm" name="status_tugas" required>
+                  <option value="1">Belum</option>
+                  <option value="2">Dalam Proses</option>
+                  <option value="3">Selesai</option>
+              </select>
+              <div>
+                  <button type="button" class="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg bg-gray-900 text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none" 
+                          onclick="document.getElementById('addTaskModal').close()">Close</button>
+                  <input value="Add" type="submit" class="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg bg-blue-600 text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none">
+              </div>
+          </form>
+      </div>
+    </dialog>
 </div>
 </body>
 
