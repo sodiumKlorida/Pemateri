@@ -140,7 +140,7 @@ $listTugas = mysqli_query($mysqli, "SELECT * FROM tugas ORDER BY id_tugas DESC")
                 <form action="./controller/addAction.php" method="POST" name="add" class="flex flex-col">
                     <input type="hidden" name="action" value="add">
                     <input class="my-2 outline-gray-900" type="text" name="nama_tugas" placeholder="Judul" required>
-                    <textarea class="my-2" name="deskripsi" placeholder="Deskripsi" required></textarea>
+                    <textarea class="my-2" name="deskripsi_tugas" placeholder="Deskripsi" required></textarea>
                     <input type="date" name="deadline_tugas" required>
                     <select class="my-2 py-1 text-gray-700 dark:text-gray-400 text-sm" name="status_tugas" required>
                         <option value="1">Belum</option>
