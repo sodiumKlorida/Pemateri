@@ -34,6 +34,7 @@ $listTugas = mysqli_query($mysqli, "SELECT * FROM Tugas ORDER BY id_tugas DESC")
             <!-- Left Content (Greeting) -->
             <div class="flex flex-col">
                 <h2 class="text-3xl font-bold text-gray-700">Hi, Nabil</h2>
+                <h2 class="text-3xl font-bold text-gray-700">Hi, ECA</h2>
             </div>
 
             <!-- Center Title -->
