@@ -13,8 +13,9 @@ if (isset($_POST['submit'])) {
 	$namaTugas = mysqli_real_escape_string($mysqli, $_POST['nama_tugas']);
 	$deadLine = mysqli_real_escape_string($mysqli, $_POST['deadline_tugas']);
 	$status = mysqli_real_escape_string($mysqli, $_POST['status_tugas']);
-	$deskripsi = mysqli_real_escape_string($mysqli, $_POST['deskripsi']);
+	$deskripsi = mysqli_real_escape_string($mysqli, $_POST['deskripsi_tugas']);
 		
+	echo var_dump($deskripsi);
 	// Check for empty fields
 	if (empty($namaTugas) || empty($deadLine) || empty($status)) {
 		if (empty($namaTugas)) {
@@ -36,8 +37,12 @@ if (isset($_POST['submit'])) {
 
 		echo $namaTugas;
 		// Insert data into database
-		$result = mysqli_query($mysqli, "INSERT INTO tugas (`nama_tugas`, `deadline_tugas`, `status_tugas`,'deskripsi_tugas') VALUES ('$namaTugas', '$deadLine', '$status','$deskripsi)");
+		$result = mysqli_query($mysqli, "INSERT INTO tugas (nama_tugas, deadline_tugas, status_tugas, deskripsi_tugas) VALUES ('$namaTugas', '$deadLine', '$status', '$deskripsi')");
 		
+		if($result){
+			header('Location: http://localhost/Pemateri/src/index.php');
+            exit();
+		}
 		// Display success message
 		echo "<p><font color='green'>Data added successfully!</p>";
 		echo "<a href='/index.php'>View Result</a>";

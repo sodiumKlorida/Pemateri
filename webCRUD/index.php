@@ -74,14 +74,14 @@ $listTugas = mysqli_query($mysqli, "SELECT * FROM tugas ORDER BY id_tugas DESC")
         <div class="relative flex flex-col m-4 text-gray-700 bg-white shadow-md bg-clip-border rounded-xl w-80"> <!-- Adjusted width -->
           <div class="p-6">
               <h5 class="block mb-2 font-sans text-xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900">
-                  <?=$task["judul"]?>
+                  <?=$task["nama_tugas"]?>
               </h5>
               <p class="block font-sans text-base antialiased font-light leading-relaxed text-inherit">
-                  <?=$task["deskripsi"]?>
+                  <?=$task["deskripsi_tugas"]?>
               </p>
-              <span><?=$task["date"]?></span>
+              <span><?=$task["deadline_tugas"]?></span>
               <?php
-                switch($task['status']) {
+                switch($task['status_tugas']) {
                   case 1:
                       echo '<p class="text-red-600">Belum</p>';
                       break;
@@ -99,28 +99,28 @@ $listTugas = mysqli_query($mysqli, "SELECT * FROM tugas ORDER BY id_tugas DESC")
           <div class="p-6 pt-0">
             <!-- Open Modal Button -->
             <button type="button" class="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg bg-gray-900 text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none" 
-              onclick="document.getElementById('modal-<?=$task['id']?>').showModal()">Edit</button>
+              onclick="document.getElementById('modal-<?=$task['id_tugas']?>').showModal()">Edit</button>
           </div>
         </div>
 
         <!-- Modal for Editing Task -->
-        <dialog id="modal-<?=$task['id']?>" class="bg-gray-200">
+        <dialog id="modal-<?=$task['id_tugas']?>" class="bg-gray-200">
           <div class="bg-white p-8 w-[400px] rounded-lg">
               <h1>Edit Tugas</h1>
-              <form action="../controller/TaskController.php" method="POST" class="flex flex-col">
-                  <input type="hidden" name="id" value="<?=$task['id']?>"> <!-- Input tersembunyi untuk ID -->
-                  <input class="my-2 outline-gray-900" type="text" name="judul" value="<?=$task["judul"]?>">
-                  <textarea class="my-2" name="deskripsi"><?=$task['deskripsi'] ?></textarea>
-                  <input type="date" name="date" value="<?=$task['date']?>">
-                  <select class="my-2 py-1 text-gray-700 dark:text-gray-400 text-sm" name="status">
-                      <option value="1" <?= $task['status'] == 1 ? 'selected' : '' ?>>Belum</option>
-                      <option value="2" <?= $task['status'] == 2 ? 'selected' : '' ?>>Dalam Proses</option>
-                      <option value="3" <?= $task['status'] == 3 ? 'selected' : '' ?>>Selesai</option>
+              <form action="./controller/editAction.php" name="update" method="POST" class="flex flex-col">
+                  <input type="hidden" name="id_tugas" value="<?=$task['id_tugas']?>">
+                  <input class="my-2 outline-gray-900" type="text" name="nama_tugas" value="<?=$task["nama_tugas"]?>">
+                  <textarea class="my-2" name="deskripsi_tugas"><?=$task['deskripsi_tugas'] ?></textarea>
+                  <input type="date" name="deadline_tugas" value="<?=$task['deadline_tugas']?>">
+                  <select class="my-2 py-1 text-gray-700 dark:text-gray-400 text-sm" name="status_tugas">
+                      <option value="1" <?= $task['status_tugas'] == 1 ? 'selected' : '' ?>>Belum</option>
+                      <option value="2" <?= $task['status_tugas'] == 2 ? 'selected' : '' ?>>Dalam Proses</option>
+                      <option value="3" <?= $task['status_tugas'] == 3 ? 'selected' : '' ?>>Selesai</option>
                   </select>
                   <div>
                       <button type="button" class="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg bg-gray-900 text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none" 
-                          onclick="document.getElementById('modal-<?=$task['id']?>').close()">Close</button>
-                      <input value="Save" type="submit" class="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg bg-green-600 text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none">
+                          onclick="document.getElementById('modal-<?=$task['id_tugas']?>').close()">Close</button>
+                      <input value="Save" type="submit" name="update" class="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg bg-green-600 text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none">
                   </div>
               </form>
           </div>
@@ -134,13 +134,14 @@ $listTugas = mysqli_query($mysqli, "SELECT * FROM tugas ORDER BY id_tugas DESC")
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
         </svg>
     </button>
+
     <dialog id="addTaskModal" class="bg-gray-200">
       <div class="bg-white p-8 w-[400px] rounded-lg">
           <h1>Tambah Tugas</h1>
-          <form action="controller/addAction.php" method="POST" name="add" class="flex flex-col">
+          <form action="./controller/addAction.php" method="post" name="add" class="flex flex-col">
               <input type="hidden" name="action" value="add">
               <input class="my-2 outline-gray-900" type="text" name="nama_tugas" placeholder="Judul" required>
-              <textarea class="my-2" name="deskripsi" placeholder="Deskripsi" required></textarea>
+              <textarea class="my-2" name="deskripsi_tugas" placeholder="Deskripsi" required></textarea>
               <input type="date" name="deadline_tugas" required>
               <select class="my-2 py-1 text-gray-700 dark:text-gray-400 text-sm" name="status_tugas" required>
                   <option value="1">Belum</option>
@@ -150,7 +151,7 @@ $listTugas = mysqli_query($mysqli, "SELECT * FROM tugas ORDER BY id_tugas DESC")
               <div>
                   <button type="button" class="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg bg-gray-900 text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none" 
                           onclick="document.getElementById('addTaskModal').close()">Close</button>
-                  <input value="Add" type="submit" class="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg bg-blue-600 text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none">
+                <input value="Add" type="submit" name="submit" class="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg bg-blue-600 text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none">
               </div>
           </form>
       </div>
