@@ -1,6 +1,6 @@
 <?php
- // WAIT
+ //p
 define("DB_HOST","localhost:3306");
-define("DB_USERNAME","rood");
+define("DB_USERNAME","root");
 define("DB_PASSWORD","");
 define("DB_NAME","db_web");

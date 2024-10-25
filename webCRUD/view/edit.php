@@ -26,7 +26,7 @@ $status = $resultData['status_tugas'];
 
 <body class="bg-gray-100">
     <div class="container mx-auto p-6">
-        <h2 class="text-3xl font-bold text-center mb-6">Edit Data</h2>
+        <h2 class="text-3xl font-bold text-center mb-6">Edit Dataa</h2>
         <div class="text-center mb-4">
             <a href="/index.php" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                 Home
