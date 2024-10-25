@@ -9,4 +9,4 @@ $id = $_GET['id_tugas'];
 $result = mysqli_query($mysqli, "DELETE FROM tugas WHERE id_tugas = $id");
 
 // Redirect to the main display page (index.php in our case)
-header("Location:../page/index.php");
+header("Location:/index.php");

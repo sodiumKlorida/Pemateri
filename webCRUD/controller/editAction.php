@@ -33,7 +33,7 @@ if (isset($_POST['update'])) {
 		if ($result) {
 			echo "<script type='text/javascript'>
 				alert('Data updated successfully!');
-				window.location.href = '../page/index.php';
+				window.location.href = '/index.php';
 			</script>";
 		} else {
 			// If there's an error
