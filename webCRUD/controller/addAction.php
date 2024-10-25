@@ -34,7 +34,7 @@ if (isset($_POST['submit'])) {
 	} else { 
 		// If all the fields are filled (not empty) 
 
-		e
+		
 		// Insert data into database
 		$result = mysqli_query($mysqli, "INSERT INTO tugas (`nama_tugas`, `deadline_tugas`, `status_tugas`,'deskripsi_tugas') VALUES ('$namaTugas', '$deadLine', '$status','$deskripsi)");
 		
