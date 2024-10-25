@@ -38,7 +38,7 @@ if (isset($_POST['submit'])) {
 		
 		// Display success message
 		echo "<p><font color='green'>Data added successfully!</p>";
-		echo "<a href='../page/index.php'>View Result</a>";
+		echo "<a href='/index.php'>View Result</a>";
 	}
 }
 ?>
