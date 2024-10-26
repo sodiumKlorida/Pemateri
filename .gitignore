@@ -1,1 +1,2 @@
-/webCRUD/config
+webCRUD/config/*
+node_modules
