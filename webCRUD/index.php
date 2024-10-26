@@ -17,15 +17,15 @@ $listTugas = mysqli_query($mysqli, "SELECT * FROM tugas ORDER BY id_tugas DESC")
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="bg-gray-100 m-0">
-    <div class="container mx-0 sticky top-0 z-10">
+<body class="bg-gray-100 m-0 ">
+    <div class=" mx-0 sticky top-0 z-10">
         <div class="header 
         flex 
         items-center   
         justify-between
         mb-6 
-        px-6
-        w-full 
+        px-12
+        w-full
         h-[5rem]  
         bg-white 
         
