@@ -1,2 +1,3 @@
 webCRUD/config/*
 node_modules
+webCRUD/config/dbAtribute.php
