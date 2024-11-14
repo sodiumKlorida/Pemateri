@@ -77,7 +77,7 @@ $listTugas = mysqli_query($mysqli, "SELECT * FROM tugas ORDER BY id_tugas DESC")
                   <?=$task["nama_tugas"]?>
               </h5>
               <div>
-                  <p class="block font-sans text-base antialiased font-light min-h-[130px] leading-relaxed text-inherit break-words" >
+                  <p class="block font-sans text-base antialiased font-light h-[130px] leading-relaxed text-inherit break-words" >
                       <?=$task["deskripsi_tugas"]?>
                   </p>
               </div>
@@ -103,15 +103,29 @@ $listTugas = mysqli_query($mysqli, "SELECT * FROM tugas ORDER BY id_tugas DESC")
                       break;
                   case 2:
                     $selisih_hari = (strtotime($task["deadline_tugas"]) - strtotime($date_now)) / (60 * 60 * 24);
-                    if ($selisih_hari <= 0) {
-                        echo '<p class="text-red-600 font-bold">Terlambat ' . abs(round($selisih_hari)). ' hari </p> ';
+                    if ($selisih_hari < 0) {
+                        echo '<p class="text-red-600 font-bold">Terlambat ' . abs(round($selisih_hari)) . ' hari</p> ';
+                    } else {
+                        echo '<p class="text-green-600 font-bold">Sisa ' . abs(round($selisih_hari)). ' hari</p>' ;
                     }
                       echo '<p class="text-yellow-600 font-bold">Dalam Proses</p>';
                       break;
                   case 3:
+                    $selisih_hari = (strtotime($task["deadline_tugas"]) - strtotime($date_now)) / (60 * 60 * 24);
+                    if ($selisih_hari < 0) {
+                        echo '<p class="text-red-600 font-bold">Terlambat ' . abs(round($selisih_hari)) . ' hari</p> ';
+                    } else {
+                        echo '<p class="text-green-600 font-bold">Sisa ' . abs(round($selisih_hari)). ' hari</p>' ;
+                    }
                       echo '<p class="text-green-600 font-bold">Selesai</p>';
                       break;
                   default:
+                  $selisih_hari = (strtotime($task["deadline_tugas"]) - strtotime($date_now)) / (60 * 60 * 24);
+                    if ($selisih_hari < 0) {
+                        echo '<p class="text-red-600 font-bold">Terlambat ' . abs(round($selisih_hari)) . ' hari</p> ';
+                    } else {
+                        echo '<p class="text-green-600 font-bold">Sisa ' . abs(round($selisih_hari)). ' hari</p>' ;
+                    }
                       echo '<p class="text-gray-600 font-bold">Status Tidak Diketahui</p>';
                 }
                 
