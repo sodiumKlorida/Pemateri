@@ -79,8 +79,20 @@ $listTugas = mysqli_query($mysqli, "SELECT * FROM tugas ORDER BY id_tugas DESC")
               <p class="block font-sans text-base antialiased font-light min-h-20 leading-relaxed text-inherit">
                   <?=$task["deskripsi_tugas"]?>
               </p>
-              <span><?=$task["deadline_tugas"]?></span>
+              
               <?php
+              $date_now = date('Y-m-d');
+              $date_manual = "2024-09-20";
+
+              echo $date_now . "<br>";
+              echo $task["deadline_tugas"] . "<br>";
+
+              $selisih_hari = (strtotime($task["deadline_tugas"]) - strtotime($date_now)) / (60 * 60 * 24);
+              if ($selisih_hari < 0) {
+                  echo "Melebihi batas hari: ". round($selisih_hari);
+              } else {
+                  echo "Selisih hari: " . round($selisih_hari);
+              }
                 switch($task['status_tugas']) {
                   case 1:
                       echo '<p class="text-red-600">Belum</p>';
@@ -94,6 +106,7 @@ $listTugas = mysqli_query($mysqli, "SELECT * FROM tugas ORDER BY id_tugas DESC")
                   default:
                       echo '<p class="text-gray-600">Status Tidak Diketahui</p>';
                 }
+                
               ?>
           </div>
           <div class="p-6 pt-0">
@@ -110,7 +123,7 @@ $listTugas = mysqli_query($mysqli, "SELECT * FROM tugas ORDER BY id_tugas DESC")
               <form action="./controller/editAction.php" name="update" method="POST" class="flex flex-col">
                   <input type="hidden" name="id_tugas" value="<?=$task['id_tugas']?>">
                   <input class="my-2 outline-gray-900" type="text" name="nama_tugas" value="<?=$task["nama_tugas"]?>">
-                  <textarea class="my-2" name="deskripsi_tugas"><?=$task['deskripsi_tugas'] ?></textarea>
+                  <textarea class="my-2" name="deskripsi_tugas m"><?=$task['deskripsi_tugas'] ?></textarea>
                   <input type="date" name="deadline_tugas" value="<?=$task['deadline_tugas']?>">
                   <select class="my-2 py-1 text-gray-700 dark:text-gray-400 text-sm" name="status_tugas">
                       <option value="1" <?= $task['status_tugas'] == 1 ? 'selected' : '' ?>>Belum</option>
