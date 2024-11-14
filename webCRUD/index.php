@@ -17,15 +17,15 @@ $listTugas = mysqli_query($mysqli, "SELECT * FROM tugas ORDER BY id_tugas DESC")
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="bg-gray-100 m-0">
-    <div class="container mx-0 sticky top-0 z-10">
+<body class="bg-gray-100 m-0 ">
+    <div class=" mx-0 sticky top-0 z-10">
         <div class="header 
         flex 
         items-center   
         justify-between
         mb-6 
-        px-6
-        w-full 
+        px-12
+        w-full
         h-[5rem]  
         bg-white 
         
@@ -45,7 +45,7 @@ $listTugas = mysqli_query($mysqli, "SELECT * FROM tugas ORDER BY id_tugas DESC")
 
             <!-- Right Content (Button) -->
             <div class="flex flex-col">
-                <?= date("l, d F Y")?> 
+                <?= date("l, d F Y") ?>
             </div>
         </div>
     </div>
@@ -163,7 +163,7 @@ $listTugas = mysqli_query($mysqli, "SELECT * FROM tugas ORDER BY id_tugas DESC")
                     <div>
                         <button type="button" class="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg bg-gray-900 text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none"
                             onclick="document.getElementById('addTaskModal').close()">Close</button>
-                            <input value="Add" type="submit" name="submit" class="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg bg-blue-600 text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none">
+                        <input value="Add" type="submit" name="submit" class="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg bg-blue-600 text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none">
 
                     </div>
                 </form>
