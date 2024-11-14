@@ -71,43 +71,52 @@ $listTugas = mysqli_query($mysqli, "SELECT * FROM tugas ORDER BY id_tugas DESC")
     <div class="flex flex-wrap pl-[4rem]"> <!-- Flex container for task cards -->
     <!-- Task List -->
     <?php foreach ($listTugas as $task): ?>   
-        <div class=" flex flex-col m-4 text-gray-700 bg-white shadow-md bg-clip-border rounded-xl w-80"> <!-- Adjusted width -->
+        <div class=" flex flex-col m-4 text-gray-700 bg-white shadow-md bg-clip-border rounded-xl w-[320px] h-[385px]"> <!-- Adjusted width -->
           <div class="p-6">
               <h5 class="block mb-2 font-sans text-xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900">
                   <?=$task["nama_tugas"]?>
               </h5>
-              <p class="block font-sans text-base antialiased font-light min-h-20 leading-relaxed text-inherit">
-                  <?=$task["deskripsi_tugas"]?>
-              </p>
+              <div>
+                  <p class="block font-sans text-base antialiased font-light min-h-[130px] leading-relaxed text-inherit" >
+                      <?=$task["deskripsi_tugas"]?>
+                  </p>
+              </div>
               
+              <div class=" flex flex-col items-center justify-center align-middle">
               <?php
               $date_now = date('Y-m-d');
               $date_manual = "2024-09-20";
 
-              echo $date_now . "<br>";
-              echo $task["deadline_tugas"] . "<br>";
+            //   echo $date_now . "<br>";
+              echo "Deadline : " . $task["deadline_tugas"] . "<br>";
 
-              $selisih_hari = (strtotime($task["deadline_tugas"]) - strtotime($date_now)) / (60 * 60 * 24);
-              if ($selisih_hari < 0) {
-                  echo "Melebihi batas hari: ". round($selisih_hari);
-              } else {
-                  echo "Selisih hari: " . round($selisih_hari);
-              }
+              
                 switch($task['status_tugas']) {
                   case 1:
-                      echo '<p class="text-red-600">Belum</p>';
+                    $selisih_hari = (strtotime($task["deadline_tugas"]) - strtotime($date_now)) / (60 * 60 * 24);
+                    if ($selisih_hari < 0) {
+                        echo '<p class="text-red-600 font-bold">Terlambat ' . abs(round($selisih_hari)) . ' hari</p> ';
+                    } else {
+                        echo '<p class="text-green-600 font-bold">Sisa ' . abs(round($selisih_hari)). ' hari</p>' ;
+                    }
+                      echo '<p class="text-red-600 font-bold">Belum</p>';
                       break;
                   case 2:
-                      echo '<p class="text-yellow-600">Dalam Proses</p>';
+                    $selisih_hari = (strtotime($task["deadline_tugas"]) - strtotime($date_now)) / (60 * 60 * 24);
+                    if ($selisih_hari <= 0) {
+                        echo '<p class="text-red-600 font-bold">Terlambat ' . abs(round($selisih_hari)). ' hari </p> ';
+                    }
+                      echo '<p class="text-yellow-600 font-bold">Dalam Proses</p>';
                       break;
                   case 3:
-                      echo '<p class="text-green-600">Selesai</p>';
+                      echo '<p class="text-green-600 font-bold">Selesai</p>';
                       break;
                   default:
-                      echo '<p class="text-gray-600">Status Tidak Diketahui</p>';
+                      echo '<p class="text-gray-600 font-bold">Status Tidak Diketahui</p>';
                 }
                 
               ?>
+              </div>
           </div>
           <div class="p-6 pt-0">
             <!-- Open Modal Button -->
@@ -123,7 +132,7 @@ $listTugas = mysqli_query($mysqli, "SELECT * FROM tugas ORDER BY id_tugas DESC")
               <form action="./controller/editAction.php" name="update" method="POST" class="flex flex-col">
                   <input type="hidden" name="id_tugas" value="<?=$task['id_tugas']?>">
                   <input class="my-2 outline-gray-900" type="text" name="nama_tugas" value="<?=$task["nama_tugas"]?>">
-                  <textarea class="my-2" name="deskripsi_tugas m"><?=$task['deskripsi_tugas'] ?></textarea>
+                  <textarea class="my-2" name="deskripsi_tugas" maxlength="200"><?=$task['deskripsi_tugas'] ?></textarea>
                   <input type="date" name="deadline_tugas" value="<?=$task['deadline_tugas']?>">
                   <select class="my-2 py-1 text-gray-700 dark:text-gray-400 text-sm" name="status_tugas">
                       <option value="1" <?= $task['status_tugas'] == 1 ? 'selected' : '' ?>>Belum</option>
