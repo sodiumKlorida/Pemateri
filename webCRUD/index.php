@@ -111,12 +111,6 @@ $listTugas = mysqli_query($mysqli, "SELECT * FROM tugas ORDER BY id_tugas DESC")
                       echo '<p class="text-yellow-600 font-bold">Dalam Proses</p>';
                       break;
                   case 3:
-                    $selisih_hari = (strtotime($task["deadline_tugas"]) - strtotime($date_now)) / (60 * 60 * 24);
-                    if ($selisih_hari < 0) {
-                        echo '<p class="text-red-600 font-bold">Terlambat ' . abs(round($selisih_hari)) . ' hari</p> ';
-                    } else {
-                        echo '<p class="text-green-600 font-bold">Sisa ' . abs(round($selisih_hari)). ' hari</p>' ;
-                    }
                       echo '<p class="text-green-600 font-bold">Selesai</p>';
                       break;
                   default:
