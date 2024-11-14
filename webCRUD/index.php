@@ -77,7 +77,7 @@ $listTugas = mysqli_query($mysqli, "SELECT * FROM tugas ORDER BY id_tugas DESC")
                   <?=$task["nama_tugas"]?>
               </h5>
               <div>
-                  <p class="block font-sans text-base antialiased font-light min-h-[130px] leading-relaxed text-inherit" >
+                  <p class="block font-sans text-base antialiased font-light min-h-[130px] leading-relaxed text-inherit break-words" >
                       <?=$task["deskripsi_tugas"]?>
                   </p>
               </div>
