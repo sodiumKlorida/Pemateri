@@ -38,7 +38,8 @@ if (isset($_POST['update'])) {
 			</script>";
 			exit();
 		} else {
-			echo "<script type='text/javascript'>
+			echo "
+			<script type='text/javascript'>
 				alert('Error updating data.');
 			</script>";
 		}

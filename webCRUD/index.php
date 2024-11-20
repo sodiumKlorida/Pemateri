@@ -3,8 +3,21 @@
 // Include the database connection file
 require_once("config/connection.php");
 
-// Fetch data in descending order (latest entry first)
-$listTugas = mysqli_query($mysqli, "SELECT * FROM tugas ORDER BY id_tugas DESC");
+// Function untuk filtering apa yang akan ditunjukkan
+if (isset($_GET['status'])) {
+    if ($_GET['status'] == 'notDone') {
+        $listTugas = mysqli_query($mysqli, "SELECT * FROM tugas WHERE status_tugas = '1' ORDER BY id_tugas DESC");
+    } elseif ($_GET['status'] == 'onProgress') {
+        $listTugas = mysqli_query($mysqli, "SELECT * FROM tugas WHERE status_tugas = '2' ORDER BY id_tugas DESC");
+    } elseif ($_GET['status'] == 'done') {
+        $listTugas = mysqli_query($mysqli, "SELECT * FROM tugas WHERE status_tugas = '3' ORDER BY id_tugas DESC");
+    } elseif ($_GET['status'] == 'canceled') {
+        $listTugas = mysqli_query($mysqli, "SELECT * FROM tugas WHERE status_tugas = '4' ORDER BY id_tugas DESC");
+    }
+    
+} else {
+    $listTugas = mysqli_query($mysqli, "SELECT * FROM tugas ORDER BY id_tugas DESC");
+}
 ?>
 
 <html lang="en">
@@ -51,27 +64,17 @@ $listTugas = mysqli_query($mysqli, "SELECT * FROM tugas ORDER BY id_tugas DESC")
     </div>
 
     <div class="flex flex-row justify-between p-[20px] mx-auto w-[40rem]">
-        <div class="flex flex-col justify-center bg-white shadow-md bg-clip-border rounded-xl w-[4rem] h-[3rem]">
-            <button type="button" class="mx-auto">All</button>
-        </div>
-        <div class="flex flex-col justify-center bg-white shadow-md bg-clip-border rounded-xl w-[4rem] h-[3rem]">
-            <button type="button" class="mx-auto">Belum</button>
-        </div>
-        <div class="flex flex-col justify-center bg-white shadow-md bg-clip-border rounded-xl w-[9rem] h-[3rem]">
-            <button type="button" class="mx-auto">On Progress</button>
-        </div>
-        <div class="flex flex-col justify-center bg-white shadow-md bg-clip-border rounded-xl w-[4rem] h-[3rem]">
-            <button type="button" class="mx-auto">Done</button>
-        </div>
-        <div class="flex flex-col justify-center bg-white shadow-md bg-clip-border rounded-xl w-[7rem] h-[3rem]">
-            <button type="button" class="mx-auto">Canceled</button>
-        </div>
+            <a href="http://localhost/pemateri/webCRUD/index.php" class="flex flex-col justify-center bg-white shadow-md bg-clip-border rounded-xl hover:bg-gray-200 w-[6rem] h-[3rem] text-center">All</a>
+            <a href="http://localhost/pemateri/webCRUD/index.php?status=notDone" class="flex flex-col justify-center bg-white shadow-md bg-clip-border rounded-xl hover:bg-gray-200 w-[6rem] h-[3rem] text-center">Not Done</a>
+            <a href="http://localhost/pemateri/webCRUD/index.php?status=onProgress" class="flex flex-col justify-center bg-white shadow-md bg-clip-border rounded-xl hover:bg-gray-200 w-[6rem] h-[3rem] text-center">On Progress</a>
+            <a href="http://localhost/pemateri/webCRUD/index.php?status=done" class="flex flex-col justify-center bg-white shadow-md bg-clip-border rounded-xl hover:bg-gray-200 w-[6rem] h-[3rem] text-center">Done</a>
+            <a href="http://localhost/pemateri/webCRUD/index.php?status=canceled" class="flex flex-col justify-center bg-white shadow-md bg-clip-border rounded-xl hover:bg-gray-200 w-[6rem] h-[3rem] text-center">Canceled</a>
     </div>
 
     <div class="flex flex-wrap pl-[4rem]"> <!-- Flex container for task cards -->
         <!-- Task List -->
         <?php foreach ($listTugas as $task): ?>
-            <div class=" flex flex-col m-4 text-gray-700 bg-white shadow-md bg-clip-border rounded-xl w-[320px] h-[385px]"> <!-- Adjusted width -->
+            <div class=" flex flex-col m-4 text-gray-700 bg-white shadow-md bg-clip-border rounded-xl w-[320px] h-[400px]"> <!-- Adjusted width -->
                 <div class="p-6">
                     <h5 class="block mb-2 font-sans text-xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900">
                         <?= $task["nama_tugas"] ?>
@@ -113,6 +116,9 @@ $listTugas = mysqli_query($mysqli, "SELECT * FROM tugas ORDER BY id_tugas DESC")
                             case 3:
                                 echo '<p class="text-green-600 font-bold pb-[1.5rem]">Selesai</p>';
                                 break;
+                            case 4:
+                                echo '<p class="text-purple-950 font-bold pb-[1.5rem]">Dibatalkan</p>';
+                                break;
                             default:
                                 $selisih_hari = (strtotime($task["deadline_tugas"]) - strtotime($date_now)) / (60 * 60 * 24);
                                 if ($selisih_hari < 0) {
@@ -146,6 +152,7 @@ $listTugas = mysqli_query($mysqli, "SELECT * FROM tugas ORDER BY id_tugas DESC")
                             <option value="1" <?= $task['status_tugas'] == 1 ? 'selected' : '' ?>>Belum</option>
                             <option value="2" <?= $task['status_tugas'] == 2 ? 'selected' : '' ?>>Dalam Proses</option>
                             <option value="3" <?= $task['status_tugas'] == 3 ? 'selected' : '' ?>>Selesai</option>
+                            <option value="4" <?= $task['status_tugas'] == 4 ? 'selected' : '' ?>>Dibatalkan</option>
                         </select>
                         <div>
                             <button type="button" class="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg bg-gray-900 text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none"
@@ -176,6 +183,7 @@ $listTugas = mysqli_query($mysqli, "SELECT * FROM tugas ORDER BY id_tugas DESC")
                         <option value="1">Belum</option>
                         <option value="2">Dalam Proses</option>
                         <option value="3">Selesai</option>
+                        <option value="4">Dibatalkan</option>
                     </select>
                     <div>
                         <button type="button" class="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg bg-gray-900 text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none"
